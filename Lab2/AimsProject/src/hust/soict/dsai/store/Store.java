@@ -1,35 +1,38 @@
 package hust.soict.dsai.store;
 
 import java.util.ArrayList;
-
-import hust.soict.dsai.disc.DigitalVideoDisc;
+import hust.soict.dsai.aims.media.Media;
 
 public class Store {
-    // no limit on the number of DVDs
-    private ArrayList<DigitalVideoDisc> itemsInStore = new ArrayList<>();
+    // Store inventory as a list of Media objects
+    private ArrayList<Media> itemsInStore = new ArrayList<>();
     
-    //Add
-    public void addDVD(DigitalVideoDisc... dvds) {
-        for (DigitalVideoDisc dvd : dvds) {
-            itemsInStore.add(dvd);
-            System.out.println("DVD '" + dvd.getTitle() + "' has been added to the store.");
+    // Add one or more Media items to the store
+    public void addMedia(Media... mediaItems) {
+        for (Media media : mediaItems) {
+            if (!itemsInStore.contains(media)) {
+                itemsInStore.add(media);
+                System.out.println("Media '" + media.getTitle() + "' has been added to the store.");
+            } else {
+                System.out.println("Media '" + media.getTitle() + "' is already in the store.");
+            }
         }
     }
 
-    // remove 
-    public void removeDVD(DigitalVideoDisc dvd) {
-        if (itemsInStore.remove(dvd)) {
-            System.out.println("DVD '" + dvd.getTitle() + "' has been removed from the store.");
+    // Remove a Media item from the store
+    public void removeMedia(Media media) {
+        if (itemsInStore.remove(media)) {
+            System.out.println("Media '" + media.getTitle() + "' has been removed from the store.");
         } else {
-            System.out.println("DVD '" + dvd.getTitle() + "' is not in the store.");
+            System.out.println("Media '" + media.getTitle() + "' is not in the store.");
         }
     }
 
-    //Check
+    // Print the store inventory
     public void printStoreInventory() {
         System.out.println("********** Store Inventory **********");
         if (itemsInStore.isEmpty()) {
-            System.out.println("The store has no DVDs available.");
+            System.out.println("The store has no items available.");
         } else {
             for (int i = 0; i < itemsInStore.size(); i++) {
                 System.out.println((i + 1) + ". " + itemsInStore.get(i).toString());
