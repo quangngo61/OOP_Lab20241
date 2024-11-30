@@ -1,0 +1,25 @@
+
+Section 10
+What Happens if the Object is Not an Instance?
+-If the passed object is not an instance of Media or Track:
+
+-The instanceof or getClass() check in equals() will evaluate to false.
+The method will return false, ensuring no equality comparison is performed with unrelated classes.
+
+
+Section 13
+1. What class should implement the Comparable interface?
+
+The class that should implement the Comparable interface is the Media class. Since Media is the parent class for all types of media (like DVDs, CDs, etc.), it makes sense for it to handle the basic comparison logic. This way, we can compare all Media objects in a consistent manner, regardless of whether it's a DVD, a CD, or something else. It helps ensure that when we sort media, it works for all types of items in our store.
+
+2. In those classes, how should you implement the compareTo() method to reflect the ordering that we want?
+
+In the compareTo() method, you would define how two Media objects should be ordered. For example, if we want to sort by title first, and if the titles are the same, then by cost, we’d compare the titles first. If the titles match, we move to comparing the costs. This way, the sorting happens in the exact order we want—first by title alphabetically, and then by cost, with cheaper items appearing first.
+
+3. Can we have two ordering rules of the item (by title then cost and by cost then title) if we use this Comparable interface approach?
+
+Not really. The Comparable interface is meant to define just one "natural" order for an object, so you can only have one sorting rule for Media. If you want to have different ways of sorting, like by title first or by cost first, you’d need to use a Comparator. A Comparator allows you to create multiple sorting strategies, so you can switch between them depending on what you need at the moment.
+
+4. Suppose the DVDs have a different ordering rule from the other media types, that is by title, then decreasing length, then cost. How would you modify your code to allow this?
+
+For DVDs, where you want a different sorting rule (by title, then length in decreasing order, and finally cost), you would modify the compareTo() method in the DigitalVideoDisc class. First, you compare titles like usual. If the titles are the same, you’d then compare the lengths, but in reverse (so that longer DVDs come first). Finally, if both the title and length are identical, you’d compare the cost. This would give DVDs their own unique sorting behavior, distinct from other media types.
