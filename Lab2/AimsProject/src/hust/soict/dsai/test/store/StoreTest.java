@@ -1,30 +1,25 @@
 package hust.soict.dsai.test.store;
 
-import hust.soict.dsai.aims.media.DigitalVideoDisc;
-import hust.soict.dsai.aims.media.Book;
-import hust.soict.dsai.aims.media.CompactDisc;
+import hust.soict.dsai.disc.DigitalVideoDisc;
 import hust.soict.dsai.store.Store;
 
 public class StoreTest {
     public static void main(String[] args) {
-        // Create Media items
         DigitalVideoDisc dvd1 = new DigitalVideoDisc("Inception", "Sci-Fi", "Christopher Nolan", 148, 19.99f);
         DigitalVideoDisc dvd2 = new DigitalVideoDisc("The Matrix", "Sci-Fi", "Wachowski", 136, 15.49f);
-        Book book1 = new Book(15, "The Pragmatic Programmer", "Programming", 30.00f);
-        CompactDisc cd1 = new CompactDisc(1, "Thriller", "Pop", 42.99f, "Music", 4, "Michael Jackson");
+        DigitalVideoDisc dvd3 = new DigitalVideoDisc("Titanic", "Romance", "James Cameron", 195, 12.99f);
+        DigitalVideoDisc dvd4 = new DigitalVideoDisc("Avatar", "Sci-Fi", "James Cameron", 162, 14.99f);
+        DigitalVideoDisc dvd5 = new DigitalVideoDisc("The Godfather", "Crime", "Francis Ford Coppola", 175, 18.99f);
 
-        // Initialize the store
         Store store = new Store();
 
-        // Add multiple Media items to the store
-        store.addMedia(dvd1, dvd2, book1, cd1);
+        store.addDVD(dvd1, dvd2, dvd3, dvd4, dvd5);
         store.printStoreInventory();
 
-        // Remove an item from the store
-        store.removeMedia(dvd2);
+        store.removeDVD(dvd2);
         store.printStoreInventory();
 
-        // Try to remove an item not in the store
-        store.removeMedia(new DigitalVideoDisc("The Dark Knight", "Action", "Christopher Nolan", 152, 16.99f));
+        // Try to remove a DVD that is not in the store
+        store.removeDVD(new DigitalVideoDisc("The Dark Knight", "Action", "Christopher Nolan", 152, 16.99f));
     }
 }
