@@ -2,6 +2,8 @@ package hust.soict.dsai.aims.media;
 
 import java.util.ArrayList;
 
+import hust.soict.dsai.aims.exception.PlayerException;
+
 public class Book extends Media {
 
 	private ArrayList<String> authors = new ArrayList<String>();
@@ -34,6 +36,12 @@ public class Book extends Media {
         String authorsList = String.join(", ", authors); // Joining authors into a string
         return "Book - " + getTitle() + " - " + getCategory() + " - " + authorsList + ": " + getCost() + " $";
     }
+
+	@Override
+	public void play() throws PlayerException {
+		// TODO Auto-generated method stub
+		
+	}
 
 	
 }

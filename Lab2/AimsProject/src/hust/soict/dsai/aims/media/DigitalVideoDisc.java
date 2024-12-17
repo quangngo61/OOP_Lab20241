@@ -1,5 +1,7 @@
 package hust.soict.dsai.aims.media;
 
+import hust.soict.dsai.aims.exception.PlayerException;
+
 public class DigitalVideoDisc extends Disc implements Playable{
     // Class attribute to track the number of DVDs created
     private static int nbDigitalVideoDiscs = 0;
@@ -37,12 +39,15 @@ public class DigitalVideoDisc extends Disc implements Playable{
     }
     
     @Override
-    public void play() {
+    public void play() throws PlayerException {
         if (this.getLength() > 0) {
             System.out.println("Playing DVD: " + this.getTitle());
             System.out.println("DVD length: " + this.getLength());
         } else {
-            System.out.println("Cannot play this DVD: " + this.getTitle() + ". Length is zero or invalid.");
+            System.err.println("ERROR: DVD length is non-positive! Cannot play this DVD: " + this.getTitle());
+            throw new PlayerException("ERROR: DVD length is non-positive!");
         }
     }
+    
+ 
 }

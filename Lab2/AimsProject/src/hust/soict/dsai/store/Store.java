@@ -27,6 +27,11 @@ public class Store {
             System.out.println("Media '" + media.getTitle() + "' is not in the store.");
         }
     }
+    
+    
+    public ArrayList<Media> getItemsInStore() {
+        return itemsInStore;
+    }
 
     // Print the store inventory
     public void printStoreInventory() {

@@ -3,11 +3,14 @@ package hust.soict.dsai.aims;
 import hust.soict.dsai.cart.Cart;
 import hust.soict.dsai.aims.media.DigitalVideoDisc;
 import hust.soict.dsai.aims.media.Media;
+import hust.soict.dsai.aims.exception.PlayerException; 
+
+import javax.swing.JOptionPane;  // For dialog box
 
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Aims {
+public class Aims{
     private static Cart cart = new Cart();
     private static ArrayList<Media> store = new ArrayList<>();
 
@@ -135,7 +138,15 @@ public class Aims {
                 cart.addMedia(media);
                 break;
             case 2:
-                System.out.println("Play functionality coming soon!");
+                // Wrap play call in try-catch to handle PlayerException
+                try {
+                    media.play(); // This may throw PlayerException
+                } catch (PlayerException e) {
+                    // Print exception details
+                    System.err.println("Error occurred while playing media: " + e.getMessage());
+                    e.printStackTrace(); // Print stack trace
+                    JOptionPane.showMessageDialog(null, "Error: " + e.getMessage(), "Play Error", JOptionPane.ERROR_MESSAGE);
+                }
                 break;
             case 0:
                 System.out.println("Returning to previous menu.");

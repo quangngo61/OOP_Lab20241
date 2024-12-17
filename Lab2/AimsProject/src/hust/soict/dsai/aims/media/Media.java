@@ -3,6 +3,8 @@ package hust.soict.dsai.aims.media;
 import java.util.Comparator;
 import java.util.Objects;
 
+import hust.soict.dsai.aims.exception.PlayerException;
+
 public abstract class Media {
 
     private int id;
@@ -48,35 +50,46 @@ public abstract class Media {
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj) return true; // Reference equality
-        if (obj == null || getClass() != obj.getClass()) return false; // Type check
+        if (this == obj) {
+            return true; // Reference equality check
+        }
+
+        if (obj == null || !(obj instanceof Media)) {
+            return false; // Null check and class type check
+        }
 
         Media media = (Media) obj;
-        return Objects.equals(title, media.title); // Title equality
+        return Objects.equals(title, media.title); // Compare titles for equality
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(title); // Consistent with equals
+        return Objects.hash(title); // Hash based on title
     }
-    
-    /*@Override
-    public int compareTo(Media other) {
-        int titleComparison = this.getTitle().compareTo(other.getTitle());
-        if (titleComparison != 0) {
-            return titleComparison;
-        }
-        return Double.compare(other.getCost(), this.getCost()); // Higher cost first
-    }
-    
-    public static Comparator<Media> compareByCostThenTitle() {
-        return Comparator.comparingDouble(Media::getCost)
-                         .reversed()
-                         .thenComparing(Media::getTitle);
-    }*/
-    
-    public static final Comparator<Media> COMPARE_BY_TITLE_COST = new MediaComparatorByTitleCost();
-    public static final Comparator<Media> COMPARE_BY_COST_TITLE = new MediaComparatorByCostTitle();
-    
 
+    public abstract void play() throws PlayerException;
+
+    // Comparator for sorting by title, then cost
+    public static final Comparator<Media> COMPARE_BY_TITLE_COST = new Comparator<Media>() {
+        @Override
+        public int compare(Media media1, Media media2) {
+            int titleComparison = media1.getTitle().compareToIgnoreCase(media2.getTitle());
+            if (titleComparison != 0) {
+                return titleComparison;
+            }
+            return Float.compare(media1.getCost(), media2.getCost());  // Sort by cost if titles are equal
+        }
+    };
+
+    // Comparator for sorting by cost, then title
+    public static final Comparator<Media> COMPARE_BY_COST_TITLE = new Comparator<Media>() {
+        @Override
+        public int compare(Media media1, Media media2) {
+            int costComparison = Float.compare(media1.getCost(), media2.getCost());
+            if (costComparison != 0) {
+                return costComparison;
+            }
+            return media1.getTitle().compareToIgnoreCase(media2.getTitle());  // Sort by title if costs are equal
+        }
+    };
 }
